@@ -1,0 +1,15 @@
+{% extends "foodie/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="container border border-primary">
+        <form method="POST">
+            {% csrf_token %}
+            <p>Add new client</p>
+            {{ form|crispy }}
+            <button class="btn btn-outline-info" type="submit">Register Now</button>
+        </form>
+    </div>
+
+{% endblock %}

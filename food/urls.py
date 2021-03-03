@@ -18,12 +18,14 @@ from django.urls import path, include
 from django.contrib.auth import views as a_views
 from django.conf import settings
 from django.conf.urls.static import static
+from foodie import views as f_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('foodie.urls')),
     path('login/', a_views.LoginView.as_view(template_name='foodie/login.html'), name='login'),
-    path('logout/', a_views.LogoutView.as_view(template_name='foodie/logout.html'), name='logout')
+    path('logout/', a_views.LogoutView.as_view(template_name='foodie/logout.html'), name='logout'),
+    path('register', f_views.register, name='register')
 ]
 
 if settings.DEBUG is True:
