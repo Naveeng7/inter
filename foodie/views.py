@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from foodie.forms import UserRegisterFrom
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from PIL import Image
 
 # Create your views here.
 @login_required()
@@ -22,7 +23,8 @@ class ItemCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.chef = self.request.user
-        return super().form_valid(form)
+        form.save()
+        return redirect('greeting')
 
 
 
