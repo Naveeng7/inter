@@ -37,7 +37,7 @@ class ItemUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         item = self.get_object()
-        if self.request.user == item.id:
+        if self.request.user == item.chef:
             return True
         return False
 
