@@ -9,8 +9,8 @@
                 <div class="card" style="width: 18rem;">
                     <img class="card-img-top" src="{{ item.img.url }}">
                         <div class="card-body">
-                            <a href="{% url 'detailed' %}" class="card-title">{{ item.title }}</a>
-                            <small class="card-text">{{ item.desc }}</small>
+                            <h2 class="fw-normal text-secondary"><a href="{% url 'detailed' item.id %}" class="card-title text-secondary text-decoration-none streched-link">{{ item.title }}</a></h2>
+                            <small class="card-text d-block">{{ item.desc }}</small>
                             <small class="d-flex justify-content-end">Price</small>
                             <a href="#" class="btn btn-outline-info float-end">{{ item.price }}</a>
                         </div>
