@@ -9,7 +9,7 @@
                 <div class="card" style="width: 18rem;">
                     <img class="card-img-top" src="{{ item.img.url }}">
                         <div class="card-body">
-                            <h5 class="card-title">{{ item.title }}</h5>
+                            <a href="{% url 'detailed' %}" class="card-title">{{ item.title }}</a>
                             <small class="card-text">{{ item.desc }}</small>
                             <small class="d-flex justify-content-end">Price</small>
                             <a href="#" class="btn btn-outline-info float-end">{{ item.price }}</a>
