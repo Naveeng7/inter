@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from foodie.models import items
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from foodie.forms import UserRegisterFrom
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from PIL import Image
 
@@ -26,6 +26,29 @@ class ItemCreateView(LoginRequiredMixin, CreateView):
         form.save()
         return redirect('greeting')
 
+class ItemUpdateView(LoginRequiredMixin, UpdateView):
+    model = items
+    fields = ['title', 'img', 'desc', 'price']
+
+    def form_valid(self, form):
+        form.instance.chef = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+class ItemDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = items
+    success_url = '/'
+
+    def test_func(self):
+        item = self.get_object()
+        if self.request.user == item.chef:
+            return True
+        return False
 
 
 def login(request):
