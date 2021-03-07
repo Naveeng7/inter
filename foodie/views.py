@@ -26,17 +26,18 @@ class ItemCreateView(LoginRequiredMixin, CreateView):
         form.save()
         return redirect('greeting')
 
-class ItemUpdateView(LoginRequiredMixin, UpdateView):
+class ItemUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = items
     fields = ['title', 'img', 'desc', 'price']
+    success_url = "/"
 
     def form_valid(self, form):
         form.instance.chef = self.request.user
         return super().form_valid(form)
 
     def test_func(self):
-        post = self.get_object()
-        if self.request.user == post.author:
+        item = self.get_object()
+        if self.request.user == item.id:
             return True
         return False
 
